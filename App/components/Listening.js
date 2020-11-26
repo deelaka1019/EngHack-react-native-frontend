@@ -4,7 +4,7 @@ import { View, Text } from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Title } from 'react-native-paper';
 // import TrackPlayer from 'react-native-track-player';
-import SoundPlayer from 'react-native-sound-player'
+// import SoundPlayer from 'react-native-sound-player';
 import AppButton from "./quiz/AppButton";
 
 const Listening = () => {
@@ -18,12 +18,12 @@ const Listening = () => {
 	const URL = "https://6a63fca904fd268f15f7-d5770ffdd579eb31eaa89faeffc55fe7.ssl.cf1.rackcdn.com/elementary-podcasts-s01-e03.mp3"
 
 
-	try {
-		// or play from url
-		SoundPlayer.playUrl('https://6a63fca904fd268f15f7-d5770ffdd579eb31eaa89faeffc55fe7.ssl.cf1.rackcdn.com/elementary-podcasts-s01-e03.mp3')
-	} catch (e) {
-		console.log(`cannot play the sound file`, e)
-	}
+	// try {
+	// 	// or play from url
+	// 	SoundPlayer.playUrl('https://6a63fca904fd268f15f7-d5770ffdd579eb31eaa89faeffc55fe7.ssl.cf1.rackcdn.com/elementary-podcasts-s01-e03.mp3')
+	// } catch (e) {
+	// 	console.log(`cannot play the sound file`, e)
+	// }
 
 
 	// const start = async () => {
