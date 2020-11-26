@@ -1,53 +1,74 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { FlatList , StyleSheet } from 'react-native';
+import axios from 'axios';
 
+import { baseURL } from './baseURL';
+import { AuthContext } from "./context";
+import { Loading } from './Loading';
 import Screen from '../components/Screen';
 import Card from './Card';
 import color from './color';
 
-const listings = [
-    {
-        id:'1',
-        title:'Reding leasons 1',
-        description:'English for Everyone is a smart, simple new way to teach yourself the English language. This highly visual course uses graphics and pictures instead of wordy explanations, making vocab and grammar easy to remember. ',
-        image:require('../../assets/new_dev_signup.jpg')
-
-    },
-
-    {
-        id:'2',
-        title:'Reading leasons 2',
-        description:'English for Everyone is a smart, simple new way to teach yourself the English language. This highly visual course uses graphics and pictures instead of wordy explanations, making vocab and grammar easy to remember. ',
-        image:require('../../assets/dev_students.png')
-
-    },
-
-    {
-        id:'3',
-        title:'Reading leasons 3',
-        description:'English for Everyone is a smart, simple new way to teach yourself the English language. This highly visual course uses graphics and pictures instead of wordy explanations, making vocab and grammar easy to remember. ',
-        image:require('../../assets/abus.png')
-
-    }
-]
-
-
 function ListingScreen(props) {
+
+    const { username, password } = useContext(AuthContext);
+	
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState('');
+    const [articles, setArticles] = useState();
+
+    const image = require('../../assets/abus.png')
+
+    const pullDownRefresh = () => {
+		const user = {
+			username: username,
+			password: password
+		};
+
+		axios.post(`${baseURL}/articles`, user)
+		.then((response) => {
+			setIsLoading(false);
+			setArticles(response.data);
+			setError('');
+		})
+		.catch((err) => {
+			setIsLoading(false);
+			setArticles();
+			setError(`Error - ${err}! Reload the App. If it doesn't work, you need to Sign In again!`);
+		});
+	}
+
+	useEffect(() => {
+		pullDownRefresh();
+    }, []);
+    
+    if (isLoading) {
+		return <Loading />;
+	}
+
+	if (error) {
+		return (
+			<ScrollView>
+				<Text>{error}</Text>
+			</ScrollView>
+		);
+	}
 
     return (
        <Screen style = {styles.screen}>
            <FlatList
-                data = {listings}
-                keyExtractor = {(listing) =>listing.id.toString()}
+                data = {articles}
+                keyExtractor = {(item) =>item._id}
                 renderItem = {({item}) => 
                     <Card 
                         title = {item.title}
                         description = {item.description}
-                        image = {item.image}
-                        icon = {item.icon}
+                        image = {image}
                         navigation={props.navigation}
                     />
                 }
+                onRefresh={() => pullDownRefresh()}
+			    refreshing={isLoading}
            />
        </Screen>
     );
