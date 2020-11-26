@@ -9,6 +9,7 @@ import * as SecureStore from 'expo-secure-store';
 import Splash from "./components/Splash";
 import Register from "./components/Register";
 import Login from './components/Login';
+import Home from "./components/Home";
 import Profile from './components/Profile';
 import ResetPassword from './components/ResetPassword';
 import Grammar from './components/Grammar';
@@ -34,6 +35,30 @@ const AuthStackScreen = () => (
 			options={{ title: "Register" }}
 		/>
 	</AuthStack.Navigator>
+);
+
+// Stack Navigation from Home screen
+const HomeStack = createStackNavigator();
+const HomeStackScreen = ({ navigation }) => (
+	<HomeStack.Navigator>
+		<HomeStack.Screen
+			name="Home"
+			component={Home}
+			options={{ headerLeft: () => (
+				<Icon
+					name="menu"
+					size={24}
+					color= 'grey'
+					onPress={ () => navigation.toggleDrawer() }
+					style={{ marginLeft: 15 }}
+				/>
+            ) }}
+		/>
+		{/* <HomeStack.Screen
+			name="Read"
+			component={Read}
+		/> */}
+	</HomeStack.Navigator>
 );
 
 // Stack Navigation from Profile screen
@@ -145,7 +170,17 @@ const ChatStackScreen = ({ navigation }) => (
 // Drawer Navigation bar
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
-	<Drawer.Navigator initialRouteName="Grammar" drawerContent={props => <CustomDrawerContent {...props} />}>
+	<Drawer.Navigator initialRouteName="Home" drawerContent={props => <CustomDrawerContent {...props} />}>
+		<Drawer.Screen name="Home"
+			component={HomeStackScreen}
+			options={ () => ({
+				drawerIcon: ({ focused, color, size }) => {
+					let iconName;
+					iconName = focused ? 'home' : 'home';
+					return <Icon name={iconName} size={size} color={color} type='font-awesome' />;
+				}
+			})}
+		/>
 		<Drawer.Screen name="Grammar"
 			component={GrammarStackScreen}
 			options={ () => ({
