@@ -1,16 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Icon } from 'react-native-elements';
 import { Title, Card } from 'react-native-paper';
   
 const Read = (props) => {
 
-    const { date, title, description } = props.route.params.item;
+    const { date, title, description, views } = props.route.params.item;
 
     return (
         <ScrollView>
             <Card style={styles.titleCard}>
                 <View style={styles.notificationCardContent}>
                     <Text>Date : {date}</Text>
+                    <View style={{flexDirection:"row"}}>
+                        <Icon name='eye' type='font-awesome' size={24} color= 'grey' />
+                        <Text style={{marginTop:5}}> : {views}</Text>
+                    </View>
                     <Title>{title}</Title>
                 </View>
             </Card>
@@ -48,7 +53,8 @@ const styles = StyleSheet.create({
 		marginTop:10,
 		marginBottom:10,
 		marginLeft: 5,
-		marginRight: 5
+        marginRight: 5,
+        fontSize:17
 	},
 });
 

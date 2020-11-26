@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Linking, TextInput } from "react-native";
+import { Linking, TextInput, ScrollView } from "react-native";
 import { View, Text } from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Title } from 'react-native-paper';
@@ -95,7 +95,7 @@ const Listening = () => {
 	}
 
 	return (
-		<View style={{ margin: 20 }}>
+		<ScrollView style={{ margin: 20 }}>
 			<Text style={{marginBottom:20}}>This transcript is regarding the following podcast. Please follow the link mentioned below.</Text>
 			<TouchableOpacity
 				onPress={() => {
@@ -114,7 +114,7 @@ const Listening = () => {
 				autoCapitalize="none"
 				autoCorrect={false}
 				value={newtext}
-				style={{ marginTop: 20, marginBottom: 20 }}
+				style={{ marginTop: 25, marginBottom: 25 }}
 			/>
 			<View style={{margin:5}}>
 				<AppButton
@@ -126,13 +126,13 @@ const Listening = () => {
 				/>
 			</View>
 			<View style={{margin:5}}>
-				<AppButton title={expanded ? "Hide the Answer" : "See the Answer"} onPress={() => setExpanded(!expanded)} />
+				<AppButton title={expanded ? "Hide the Transcript" : "See the Transcript"} onPress={() => setExpanded(!expanded)} />
 			</View>
 			<View style={{margin:5}}>
 				<AppButton title="Reset" onPress={() => setnewtext("")} />
 			</View>
-			{submit && <Text style={{ marginTop: 20, marginBottom: 20 }}>{per * 100}%</Text>}
-		</View>
+			{submit && <Text style={{ marginTop: 20, marginBottom: 20, fontSize:20, color:"#1cc88a" }}>Your Score: {per * 100}%</Text>}
+		</ScrollView>
 	);
 };
 
