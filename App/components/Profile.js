@@ -87,7 +87,7 @@ export default function Profile({ navigation }) {
 				<View style={{alignItems:"center",margin:20}}>
 					<Image
 						style={{width:140,height:140,borderRadius:140/2}}
-						source={require(`../../assets/faceavatar.png`)}
+						source={require(`../../assets/avatar-01.png`)}
 					/>
 					<Title style={styles.profileTitle}>{post.name}</Title>
 					<Text style={styles.profileClinicID}>{username}</Text>

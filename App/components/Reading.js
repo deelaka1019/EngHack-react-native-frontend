@@ -17,7 +17,7 @@ const readingList = ((username,password,item,navigation) => {
 			}}
 		>
 			<View style={styles.notificationCardContent}>
-				<Text>{item.date}</Text>
+				<Text>Date : {item.date}</Text>
 				<Text style={styles.cardTextNotifications}>{item.title}</Text>
 			</View>
 		</Card>
@@ -108,10 +108,11 @@ const styles = StyleSheet.create({
 		color:"#55585c"
 	},
 	notificationCard:{
-		margin:2,
+		marginTop:10,
 		marginLeft:10,
 		marginRight:10,
-		backgroundColor:"lightgrey"
+		padding:15,
+		backgroundColor:"white"
 	},
 	notificationCardContent:{
 		padding:3

@@ -10,7 +10,7 @@ const Read = (props) => {
         <ScrollView>
             <Card style={styles.titleCard}>
                 <View style={styles.notificationCardContent}>
-                    <Text>{date}</Text>
+                    <Text>Date : {date}</Text>
                     <Title>{title}</Title>
                 </View>
             </Card>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginTop:5,
         marginLeft:5,
         marginRight:5,
-		backgroundColor:"#a6a6a2"
+		backgroundColor:"white"
     },
     detailCard:{
         marginTop:5,
