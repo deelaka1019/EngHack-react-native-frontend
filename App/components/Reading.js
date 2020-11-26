@@ -7,9 +7,15 @@ import { baseURL } from './baseURL';
 import { AuthContext } from "./context";
 import { Loading } from './Loading';
 
-const readingList = ((item,navigation) => {
+const readingList = ((username,password,item,navigation) => {
 	return(
-		<Card style={styles.notificationCard} onPress={() => navigation.push("Read",{item})}>
+		<Card
+			style={styles.notificationCard}
+			onPress={() => {
+				navigation.push("Read",{item});
+				increaseCount(username,password,item.views,item._id);
+			}}
+		>
 			<View style={styles.notificationCardContent}>
 				<Text>Date : {item.date}</Text>
 				<Text style={styles.cardTextNotifications}>{item.title}</Text>
@@ -17,6 +23,25 @@ const readingList = ((item,navigation) => {
 		</Card>
 	);
 })
+
+const increaseCount = (username,password,views,_id) => {
+	var newView = views + 1;
+
+	const user = {
+		username: username,
+		password: password,
+		views: newView,
+		_id:_id
+	};
+
+	axios.post(`${baseURL}/readings/views`, user)
+	.then((res) => {
+		console.log(res.data);
+	})
+	.catch((err) => {
+		console.log("Error",`Increasing number of views failed! ${err.response.data.msg}`);
+	});
+}
 
 export default function Reading({ navigation }) {
 
@@ -64,7 +89,7 @@ export default function Reading({ navigation }) {
 	return (
 		<FlatList
 			data={readings}
-			renderItem={({item}) => {return readingList(item,navigation)}}
+			renderItem={({item}) => {return readingList(username,password,item,navigation)}}
 			keyExtractor={(item)=>`${item._id}`}
 			onRefresh={() => pullDownRefresh()}
 			refreshing={isLoading}
